@@ -38,6 +38,59 @@ for it in items:
 CAT_ICON = {"tops": "👕", "bottoms": "👖", "shoes": "👟", "outerwear": "🧥",
             "knitwear": "🧶", "accessory": "👜", "dresses": "👗", "underwear": "🩲"}
 
+# ---- colour-swatch placeholder tiles (so every item looks intentional even
+#      when a real product photo couldn't be sourced) ----
+import urllib.parse
+COLOR_HEX = {
+    "cream": "#F1E7D2", "white": "#FBFBF8", "black": "#222020", "grey": "#9C9892",
+    "gray": "#9C9892", "navy": "#2B3653", "beige": "#D9C6A6", "tan": "#C7A06A",
+    "denim": "#3E5C84", "indigo": "#33486E", "light blue": "#AFC8E2", "ecru": "#E8E0CE",
+    "oatmeal": "#D8CCB6", "camel": "#C19A6B", "sand": "#D7C19A", "nude": "#E3C9B6",
+    "khaki": "#8C8765", "silver": "#C7CBD0", "red": "#B23B3B", "gold": "#C9A227",
+    "floral": "#C98BA8", "blue stripe": "#6E8FB8", "olive": "#6B6B3A", "brown": "#6B4A33",
+}
+EMOJI = {"tops": "👚", "bottoms": "👖", "shoes": "👠", "outerwear": "🧥",
+         "knitwear": "🧶", "accessory": "👜", "dresses": "👗", "underwear": "🩲"}
+
+def _hex_to_rgb(h):
+    h = h.lstrip("#"); return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+def _mix(h, other, t):
+    a, b = _hex_to_rgb(h), _hex_to_rgb(other)
+    return "#%02x%02x%02x" % tuple(round(a[i] + (b[i]-a[i])*t) for i in range(3))
+def _lum(h):
+    r, g, b = _hex_to_rgb(h); return (0.299*r + 0.587*g + 0.114*b) / 255
+
+def svg_tile(it):
+    base = COLOR_HEX.get((it.get("color") or "").lower(), "#B9B4AC")
+    bg = _mix(base, "#FFFFFF", 0.55)           # soft tint background
+    swatch = base
+    ink = "#1f1d1a" if _lum(bg) > 0.6 else "#ffffff"
+    sub = _mix(ink, bg, 0.35)
+    emoji = EMOJI.get(it["category"], "👗")
+    name = (it.get("name_en") or it.get("name") or "").replace("&", "&amp;")
+    brand = (it.get("brand") or "").replace("&", "&amp;")
+    sw_stroke = "#00000022" if _lum(swatch) > 0.85 else "none"
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">'
+        f'<rect width="300" height="400" fill="{bg}"/>'
+        f'<circle cx="150" cy="158" r="74" fill="{swatch}" stroke="{sw_stroke}" stroke-width="1.5"/>'
+        f'<text x="150" y="180" font-size="64" text-anchor="middle">{emoji}</text>'
+        f'<text x="150" y="300" font-family="Georgia,serif" font-size="15" fill="{ink}" '
+        f'text-anchor="middle" font-weight="600">{brand}</text>'
+        f'<text x="150" y="324" font-family="-apple-system,Helvetica,Arial" font-size="12.5" '
+        f'fill="{sub}" text-anchor="middle">{name}</text>'
+        f'<text x="150" y="364" font-family="-apple-system,Helvetica,Arial" font-size="10.5" '
+        f'fill="{sub}" text-anchor="middle" letter-spacing="1.5">{(it.get("color") or "").upper()}</text>'
+        f'</svg>'
+    )
+    return "data:image/svg+xml;utf8," + urllib.parse.quote(svg)
+
+for it in items:
+    if not it.get("image_file"):
+        it["image_file"] = svg_tile(it)
+        it["placeholder"] = True
+
+
 DOC = r"""<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
