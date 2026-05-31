@@ -1,52 +1,77 @@
-# 👔 Your Digital Wardrobe
+# 👔 Your Awesome Digital Wardrobe
 
-A visual catalog of the clothes & shoes you've bought online, reconstructed from
-your Gmail order-confirmation emails (last ~5 years).
+Your closet, reconstructed from your inbox. A visual catalog of the clothes & shoes
+you've bought online, mined from your Gmail order-confirmation emails (last ~5 years),
+with an interactive, privacy-first moodboard for keeping it true to what you own.
 
-**Open [`index.html`](index.html)** in any browser — it's fully self-contained
-(catalog data is embedded; images are local). Double-click works, no server needed.
+**Open [`index.html`](index.html)** in a browser (with the `images/` folder next to
+it), or open the single-file **`wardrobe_standalone.html`** anywhere — it has every
+photo embedded, so it works on its own.
 
-## What's inside
+## The app (UX)
 
-- **`index.html`** — browsable gallery: responsive photo grid with filters by
-  category, brand, year, and shop, plus free-text search and a "hide returned" toggle.
-- **`images/`** — downloaded product packshots (one per item).
+**Moodboard cards = just the photo.** Nothing identifying is on screen at a glance.
+Each card carries up to four corner controls:
+
+- **(i) top-left** → detail popup with the **private info**: brand, product name,
+  price, shop, size, order date, category, order #, and the product link.
+- **🗑 trash, top-right** → confirm → move to **My bin** (reversible).
+- **return, bottom-right** (only if possibly returned) → "Did you return this?" →
+  **I returned it** (animates out to My bin) / **I kept it** (just clears the icon).
+- **caution, bottom-left** (only if the photo was reverse-searched) → a disclaimer
+  popup explaining the photo was found on the web and may not be exact.
+
+Other bits:
+- **My wardrobe** & **My bin** views; **Undo** toast on removal; **Restore** from My
+  bin. Removal reason is tracked (returned vs. no longer owned). Nothing is truly deleted.
+- **Light / dark** — Claude-inspired warm light theme with a dark toggle (remembered).
+- Live stats; category chips, brand / year / shop filters, search, "hide
+  possibly-returned" toggle.
+- **Persistence** — all choices saved in the browser via `localStorage`. No backend yet.
+
+Verified with a jsdom harness (22/22 interaction + privacy assertions passing).
+
+## Files
+
+- **`index.html`** / **`wardrobe_standalone.html`** — the app (linked vs. embedded images).
+- **`images/`** — downloaded product photos.
 - **`data/wardrobe.json`** — the structured catalog (one record per item).
-- **`build/parse.py`** — parses raw email dumps → `wardrobe.json` + downloads images.
-- **`build/build_html.py`** — renders `wardrobe.json` → `index.html`.
+- **`build/parse.py`** — raw email dumps → `wardrobe.json` + downloads images.
+- **`build/recover_nike.py`** — reverse-searches images for items with none in-email.
+- **`build/build_html.py`** — renders the app (`WARDROBE_EMBED=1` → single file).
 - **`data/raw/`** — raw Gmail thread JSON (gitignored: contains your delivery address).
 
 ## Current snapshot
 
-- **75 items** across **40 orders**, **30 brands**
-- **75 items with photos** — 69 packshots pulled straight from the Zalando emails,
-  plus **6 Nike items reverse-searched** from retailer sites by product name
-  (Nike's shipping emails carry no product image). Reverse-searched photos are
-  marked `↗ web img` in the gallery; the exact colourway may differ.
-- Sources: **Zalando** (2021–2026) and **Nike** (2022)
-- Tracked spend (where price was in the email): **~15,082 zł**
+- **75 items** across **40 orders**, **30 brands**, **2021–2026**
+- Categories: Tops 23 · Bottoms 19 · Accessories 14 · Shoes 9 · Sweaters & Hoodies 6 · Underwear 4
+- **75 items with photos** — 69 packshots straight from the Zalando emails, plus
+  **6 Nike items reverse-searched** (Nike's emails carry no product image). These show
+  a representative colourway and are flagged with the caution icon.
+- Tracked value (where price was in the email): **~15,082 zł**
 
 ## Notes & caveats
 
-- **Returns**: matched against Zalando "return received" emails at the *order* level.
-  10 orders (22 items) belonged to an order that included a return — flagged with a
-  `↩ returned?` badge. Because returns are order-level, a flagged item may still be
-  owned (e.g. you returned only one item of a multi-item order).
+- **Returns are order-level.** Items from an order that included a return are flagged
+  *possibly returned* — confirm each via the return icon to make the wardrobe exact.
 - Brand, product name, colour, size and price come from the email body; the product
-  image and link come from the embedded product thumbnail.
-- **Nike images** were recovered by reverse-searching the product name on retailer
-  sites (e-tennis, tennisnuts, tradeinn) and taking the product photo. See
-  `build/recover_nike.py`. Because the emails don't record colour, these show a
-  representative colourway (the navy "410" tennis polo/shorts are a matching set).
-- Only retailers that emailed itemised order confirmations to this account are
-  included. eobuwie / Answear / Modivo sent only newsletters, so no items from them.
+  image and link come from the embedded thumbnail.
+- **Nike images** were recovered by reverse-searching the product name (e-tennis,
+  tennisnuts, tradeinn). Emails don't record colour, so the navy "410" tennis polo/
+  shorts are shown as a representative matching set.
 
-## Rebuilding / updating
+## Rebuild
 
 ```bash
-# 1. (re-)dump order emails into wardrobe/data/raw/<threadId>.json via Gmail
-# 2. parse + download images
-python3 wardrobe/build/parse.py
-# 3. regenerate the gallery
-python3 wardrobe/build/build_html.py
+python3 wardrobe/build/parse.py          # parse emails + download images
+python3 wardrobe/build/recover_nike.py   # backfill image-less items
+python3 wardrobe/build/build_html.py      # -> index.html
+WARDROBE_EMBED=1 python3 wardrobe/build/build_html.py   # -> wardrobe_standalone.html
 ```
+
+## Roadmap (SaaS)
+
+Multi-user accounts + per-user Gmail OAuth, a database behind the wardrobe state,
+item-level return detection (parse return emails to pin the exact article), and an
+"outfits" view grouping items bought together. Cost-per-wear & return-rate stats fall
+out of the tracked removal reasons.
