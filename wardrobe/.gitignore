@@ -4,3 +4,6 @@ data/raw/
 
 # Generated 15MB single-file build (images inlined as base64); regenerate with WARDROBE_EMBED=1
 wardrobe_standalone.html
+
+# Generated single-file Atelier build (images inlined)
+atelier_app_standalone.html

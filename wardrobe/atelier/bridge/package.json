@@ -1,0 +1,13 @@
+{
+  "name": "atelier-bridge",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Local bridge that powers Atelier's outfit recommendations via your Claude Max plan (Agent SDK, text-only, Opus). No API key, no per-token cost.",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "latest"
+  }
+}
