@@ -64,6 +64,7 @@ doc = """<!DOCTYPE html>
   .badge { position:absolute; top:8px; font-size:11px; padding:3px 8px; border-radius:999px; color:#fff; }
   .badge.cat { left:8px; background:rgba(0,0,0,.6); }
   .badge.ret { right:8px; background:var(--returned); color:#241a08; font-weight:600; }
+  .badge.web { bottom:8px; left:8px; background:rgba(108,140,255,.92); font-size:10px; }
   .body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:3px; }
   .brand { font-size:12px; color:var(--accent); font-weight:600; letter-spacing:.2px; }
   .name { font-size:13.5px; line-height:1.3; min-height:35px; }
@@ -102,7 +103,8 @@ doc = """<!DOCTYPE html>
 <footer>
   Built from Gmail order confirmations (Zalando &amp; Nike), %(date_min)s–%(date_max)s.
   &ldquo;Returned&rdquo; is order-level: the order included at least one returned article, so some flagged items may still be owned.
-  Nike tennis/football items have no packshot in the emails and show a placeholder.
+  Nike items carry no packshot in their emails, so their photos were reverse-searched from retailer
+  sites by product name (marked &ldquo;↗ web img&rdquo;); the exact colourway may differ.
 </footer>
 <script>
 const DATA = %(data_json)s;
@@ -117,10 +119,11 @@ function card(r){
     ? `<img loading="lazy" src="${esc(r.image_file)}" alt="${esc(r.name)}">`
     : `<div class="noimg">${CAT_ICON[r.category]||'👕'}</div>`;
   const ret = r.returned_order ? `<span class="badge ret" title="This order included a return">↩ returned?</span>` : "";
+  const web = r.image_origin==='reverse-search' ? `<span class="badge web" title="Image reverse-searched from ${esc(r.image_credit||'the web')} — colourway may differ">↗ web img</span>` : "";
   const price = r.price ? `<span class="price">${esc(r.price)}</span>` : `<span class="price">—</span>`;
   const open = r.product_url ? ` href="${esc(r.product_url)}" target="_blank" rel="noopener"` : "";
   return `<a class="card-link"${open}><div class="card">
-    <div class="thumb">${img}<span class="badge cat">${CAT_ICON[r.category]||''} ${esc(r.category)}</span>${ret}</div>
+    <div class="thumb">${img}<span class="badge cat">${CAT_ICON[r.category]||''} ${esc(r.category)}</span>${ret}${web}</div>
     <div class="body">
       <div class="brand">${esc(r.brand)||'&nbsp;'}</div>
       <div class="name">${esc(r.name)}</div>

@@ -19,8 +19,10 @@ your Gmail order-confirmation emails (last ~5 years).
 ## Current snapshot
 
 - **75 items** across **40 orders**, **30 brands**
-- **69 items with photos** (the 6 without are Nike tennis/football pieces — Nike's
-  shipping emails carry no product image, so they show a placeholder)
+- **75 items with photos** — 69 packshots pulled straight from the Zalando emails,
+  plus **6 Nike items reverse-searched** from retailer sites by product name
+  (Nike's shipping emails carry no product image). Reverse-searched photos are
+  marked `↗ web img` in the gallery; the exact colourway may differ.
 - Sources: **Zalando** (2021–2026) and **Nike** (2022)
 - Tracked spend (where price was in the email): **~15,082 zł**
 
@@ -32,6 +34,10 @@ your Gmail order-confirmation emails (last ~5 years).
   owned (e.g. you returned only one item of a multi-item order).
 - Brand, product name, colour, size and price come from the email body; the product
   image and link come from the embedded product thumbnail.
+- **Nike images** were recovered by reverse-searching the product name on retailer
+  sites (e-tennis, tennisnuts, tradeinn) and taking the product photo. See
+  `build/recover_nike.py`. Because the emails don't record colour, these show a
+  representative colourway (the navy "410" tennis polo/shorts are a matching set).
 - Only retailers that emailed itemised order confirmations to this account are
   included. eobuwie / Answear / Modivo sent only newsletters, so no items from them.
 

@@ -17,7 +17,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/a881473bc38c47718417e5b1e3baa41e/7c97a8622b5647139bfc6d06c45bc85e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904055022702-0.jpg",
     "returned_order": false,
-    "thread_id": "17a29306a3353026"
+    "thread_id": "17a29306a3353026",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904055022702-1",
@@ -37,7 +38,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/990c8754f6334831b39c8c7e1385d389/8b129d87a7d444c7a0beb89ed5eb26cf.jpg?imwidth=1200",
     "image_file": "images/zalando-10904055022702-1.jpg",
     "returned_order": false,
-    "thread_id": "17a29306a3353026"
+    "thread_id": "17a29306a3353026",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904065470453-0",
@@ -57,7 +59,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/bd605336af5839be94c846a7544bdf7b/96afaf939ff44ab0871c52f8b17cd744.jpg?imwidth=1200",
     "image_file": "images/zalando-10904065470453-0.jpg",
     "returned_order": true,
-    "thread_id": "17dae5edba49b1b3"
+    "thread_id": "17dae5edba49b1b3",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904065470453-1",
@@ -77,7 +80,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/2ba594a703d448d682f34e8b1b05e6ba/9833504a6bd84027b9bcbd0972eb7b8d.jpg?imwidth=1200",
     "image_file": "images/zalando-10904065470453-1.jpg",
     "returned_order": true,
-    "thread_id": "17dae5edba49b1b3"
+    "thread_id": "17dae5edba49b1b3",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904065762799-0",
@@ -97,7 +101,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/5841c3550ed6485ca9d72ec603f05bc2/5ab5cac3ae204f8ebe002274bbe854b1.jpg?imwidth=1200",
     "image_file": "images/zalando-10904065762799-0.jpg",
     "returned_order": false,
-    "thread_id": "17dbf3e4c91c5951"
+    "thread_id": "17dbf3e4c91c5951",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904065881605-0",
@@ -117,7 +122,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/787f89991a264af3b945f677e6b882b4/fd44309d3c194ae0b3b622a2aff55f61.jpg?imwidth=1200",
     "image_file": "images/zalando-10904065881605-0.jpg",
     "returned_order": false,
-    "thread_id": "17dc439a4c935757"
+    "thread_id": "17dc439a4c935757",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904065881605-1",
@@ -137,7 +143,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/3a5446569878377b8a59a92e0f227899/f2ec80a9d98e4cc7a02bb65284fdc61c.jpg?imwidth=1200",
     "image_file": "images/zalando-10904065881605-1.jpg",
     "returned_order": false,
-    "thread_id": "17dc439a4c935757"
+    "thread_id": "17dc439a4c935757",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904066019898-0",
@@ -157,7 +164,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/54c619afeb04390c92b2760371dd04a6/a83928f3bb0745d2beee0359e146fbb6.jpg?imwidth=1200",
     "image_file": "images/zalando-10904066019898-0.jpg",
     "returned_order": false,
-    "thread_id": "17dce7a5615f1a1e"
+    "thread_id": "17dce7a5615f1a1e",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904068517019-0",
@@ -177,7 +185,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/b99f148e976349f68b1d08efe455fcd0/0520b968b2924d3cb42aeb59baf49f38.jpg?imwidth=1200",
     "image_file": "images/zalando-10904068517019-0.jpg",
     "returned_order": false,
-    "thread_id": "17ec9f129a3d3a3f"
+    "thread_id": "17ec9f129a3d3a3f",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904068517784-0",
@@ -197,7 +206,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/03de87b9d80e4d61b092fe76d0b2474d/59c68912402a4f2fa92ffab7d51cc43e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904068517784-0.jpg",
     "returned_order": false,
-    "thread_id": "17ec9f129a3d3a3f"
+    "thread_id": "17ec9f129a3d3a3f",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904068517784-1",
@@ -217,7 +227,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/f300944789374aec89a8e33d4f75d0dd/05f1fd0b67eb4bf988d6aeb3559f894e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904068517784-1.jpg",
     "returned_order": false,
-    "thread_id": "17ec9f129a3d3a3f"
+    "thread_id": "17ec9f129a3d3a3f",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904068902699-0",
@@ -237,7 +248,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/07c4e9b919d33f79a513c7bc13ed7631/0aa12692595540f2b0ea496f087773c7.jpg?imwidth=1200",
     "image_file": "images/zalando-10904068902699-0.jpg",
     "returned_order": true,
-    "thread_id": "17ee55368a876524"
+    "thread_id": "17ee55368a876524",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904069456968-0",
@@ -257,7 +269,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/32e9f8bff452419dabf289a69a740029/0267145b2971440e9c317db5d38854a4.jpg?imwidth=1200",
     "image_file": "images/zalando-10904069456968-0.jpg",
     "returned_order": false,
-    "thread_id": "17f2693b8735e7f5"
+    "thread_id": "17f2693b8735e7f5",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904069752260-0",
@@ -277,7 +290,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/42c62e27fd764addb733940173e05a7f/0e13d44ddffe437e954de7f64aa215a3.jpg?imwidth=1200",
     "image_file": "images/zalando-10904069752260-0.jpg",
     "returned_order": true,
-    "thread_id": "17f5700019199aab"
+    "thread_id": "17f5700019199aab",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904069754291-0",
@@ -297,7 +311,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/ff2ff53c4f0f3a47bdd2bb1588a109b0/312a7bf15c5b46939f8ab31b923a7372.jpg?imwidth=1200",
     "image_file": "images/zalando-10904069754291-0.jpg",
     "returned_order": false,
-    "thread_id": "17f5700019199aab"
+    "thread_id": "17f5700019199aab",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904069761007-0",
@@ -317,7 +332,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/918e3cdf7ae5463c95d36933471f4368/0e5367fb43ac43d48332c5f357b60b7e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904069761007-0.jpg",
     "returned_order": false,
-    "thread_id": "17f5700019199aab"
+    "thread_id": "17f5700019199aab",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904069836185-0",
@@ -337,7 +353,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/0be0a5676cfa38faaa5782c3540a75e0/f217344f7d424f1ebcb637a350211209.jpg?imwidth=1200",
     "image_file": "images/zalando-10904069836185-0.jpg",
     "returned_order": true,
-    "thread_id": "17f65a86e5ae67bd"
+    "thread_id": "17f65a86e5ae67bd",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904071235051-0",
@@ -357,7 +374,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/d5b167a9f77648dab8ffa1e3248e3da3/b7445bd4a71b43158e735dc8dd1b71ce.jpg?imwidth=1200",
     "image_file": "images/zalando-10904071235051-0.jpg",
     "returned_order": false,
-    "thread_id": "17feb7454cbd2b5b"
+    "thread_id": "17feb7454cbd2b5b",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904071622750-0",
@@ -377,7 +395,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/65e1bcd17da5349fac06364180965756/859b834df40e4ab384624a7e0db6a140.jpg?imwidth=1200",
     "image_file": "images/zalando-10904071622750-0.jpg",
     "returned_order": true,
-    "thread_id": "180077e135fc4f38"
+    "thread_id": "180077e135fc4f38",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904073751197-0",
@@ -397,7 +416,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/1d6472f6a88b3f2696213c9d0b934397/28ec5670e0574c80a1919966d3ff2c97.jpg?imwidth=1200",
     "image_file": "images/zalando-10904073751197-0.jpg",
     "returned_order": false,
-    "thread_id": "180b839f8b7341a3"
+    "thread_id": "180b839f8b7341a3",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904073914571-0",
@@ -417,7 +437,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/ba1edc65a15c39f8828c5c8abd8991c2/9d52adf1dc4648e39aa10bac99059608.jpg?imwidth=1200",
     "image_file": "images/zalando-10904073914571-0.jpg",
     "returned_order": false,
-    "thread_id": "180c82c0f2dc7608"
+    "thread_id": "180c82c0f2dc7608",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904073914571-1",
@@ -437,7 +458,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/7be6a3bf5364394791f4359d0e7c0cec/bf88b1d0e452433cac65db92e046e1e8.jpg?imwidth=1200",
     "image_file": "images/zalando-10904073914571-1.jpg",
     "returned_order": false,
-    "thread_id": "180c82c0f2dc7608"
+    "thread_id": "180c82c0f2dc7608",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904073914571-2",
@@ -457,7 +479,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/6649826fa6c24dafa3ef35d84b5cef37/bf0e743993ae47c993b7a44f14003539.jpg?imwidth=1200",
     "image_file": "images/zalando-10904073914571-2.jpg",
     "returned_order": false,
-    "thread_id": "180c82c0f2dc7608"
+    "thread_id": "180c82c0f2dc7608",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904073914900-0",
@@ -477,7 +500,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/084f0a7fe1d74769a4a410eca7890041/27bfc75114b34e2083815b2906a41966.jpg?imwidth=1200",
     "image_file": "images/zalando-10904073914900-0.jpg",
     "returned_order": false,
-    "thread_id": "180c82c0f2dc7608"
+    "thread_id": "180c82c0f2dc7608",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904074213847-0",
@@ -497,7 +521,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/e736594d5132472894666a2f1593d775/fbecbff0d2ab4fc3a687fbacd2853901.jpg?imwidth=1200",
     "image_file": "images/zalando-10904074213847-0.jpg",
     "returned_order": false,
-    "thread_id": "180d3ba30a0c20b2"
+    "thread_id": "180d3ba30a0c20b2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904074236437-0",
@@ -517,7 +542,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/6b9320ceefcc3befbcb40eb3df67ef0f/94e415082f44486f8e0239594e23565e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904074236437-0.jpg",
     "returned_order": true,
-    "thread_id": "180d3ba30a0c20b2"
+    "thread_id": "180d3ba30a0c20b2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904074393777-0",
@@ -537,7 +563,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/5858a237c6ef45f3b196a34e5c5715e4/b358ceedbc764c84848f1e45046c6ed7.jpg?imwidth=1200",
     "image_file": "images/zalando-10904074393777-0.jpg",
     "returned_order": true,
-    "thread_id": "180dc8370011ec79"
+    "thread_id": "180dc8370011ec79",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904074541459-0",
@@ -557,7 +584,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/6b9320ceefcc3befbcb40eb3df67ef0f/94e415082f44486f8e0239594e23565e.jpg?imwidth=1200",
     "image_file": "images/zalando-10904074541459-0.jpg",
     "returned_order": false,
-    "thread_id": "180e20b4dcd379be"
+    "thread_id": "180e20b4dcd379be",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904074867412-0",
@@ -577,7 +605,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/61ae3d7999d94f8d9947199399cbdce4/ed34a35af2c14fafa70c00aea616eff7.jpg?imwidth=1200",
     "image_file": "images/zalando-10904074867412-0.jpg",
     "returned_order": true,
-    "thread_id": "180fa90da7b86bf0"
+    "thread_id": "180fa90da7b86bf0",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904076240277-0",
@@ -597,7 +626,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/4b0c5718a4c13c198f419edcf42ebb28/5f84edeaaaa5487f81bec26982d78e4d.jpg?imwidth=1200",
     "image_file": "images/zalando-10904076240277-0.jpg",
     "returned_order": false,
-    "thread_id": "18177d457ab78bb4"
+    "thread_id": "18177d457ab78bb4",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904076240277-1",
@@ -617,7 +647,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/f9348f52a5234b75aae0c5a52735bf53/406150315a1a4e84ba1d35cd75e595fc.jpg?imwidth=1200",
     "image_file": "images/zalando-10904076240277-1.jpg",
     "returned_order": false,
-    "thread_id": "18177d457ab78bb4"
+    "thread_id": "18177d457ab78bb4",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904076240277-2",
@@ -637,7 +668,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/974203eeff154504920e6fcaf0693c43/64ae182494b1448fab933d287eb0fd15.jpg?imwidth=1200",
     "image_file": "images/zalando-10904076240277-2.jpg",
     "returned_order": false,
-    "thread_id": "18177d457ab78bb4"
+    "thread_id": "18177d457ab78bb4",
+    "image_origin": "email"
   },
   {
     "id": "nike-C01019917986-0",
@@ -655,9 +687,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01019917986-0.jpg",
     "returned_order": false,
-    "thread_id": "18313170dc9ac058"
+    "thread_id": "18313170dc9ac058",
+    "image_origin": "reverse-search",
+    "image_credit": "e-tennis.com (DN1818-410)"
   },
   {
     "id": "nike-C01019917986-1",
@@ -675,9 +709,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01019917986-1.jpg",
     "returned_order": false,
-    "thread_id": "18313170dc9ac058"
+    "thread_id": "18313170dc9ac058",
+    "image_origin": "reverse-search",
+    "image_credit": "tennisnuts.com (DN1825-410)"
   },
   {
     "id": "nike-C01019917986-2",
@@ -695,9 +731,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01019917986-2.jpg",
     "returned_order": false,
-    "thread_id": "18313170dc9ac058"
+    "thread_id": "18313170dc9ac058",
+    "image_origin": "reverse-search",
+    "image_credit": "e-tennis.com (SK0118-100)"
   },
   {
     "id": "nike-C01024787554-0",
@@ -715,9 +753,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01024787554-0.webp",
     "returned_order": false,
-    "thread_id": "183239dcdc7ec358"
+    "thread_id": "183239dcdc7ec358",
+    "image_origin": "reverse-search",
+    "image_credit": "tradeinn.com (DQ5055)"
   },
   {
     "id": "nike-C01024787554-1",
@@ -735,9 +775,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01024787554-1.webp",
     "returned_order": false,
-    "thread_id": "183239dcdc7ec358"
+    "thread_id": "183239dcdc7ec358",
+    "image_origin": "reverse-search",
+    "image_credit": "tradeinn.com"
   },
   {
     "id": "nike-C01024787554-2",
@@ -755,9 +797,11 @@
     "sku": null,
     "product_url": null,
     "image_url": null,
-    "image_file": null,
+    "image_file": "images/nike-C01024787554-2.jpg",
     "returned_order": false,
-    "thread_id": "183239dcdc7ec358"
+    "thread_id": "183239dcdc7ec358",
+    "image_origin": "reverse-search",
+    "image_credit": "tennisnuts.com (DN1825-410)"
   },
   {
     "id": "zalando-10904081226980-0",
@@ -777,7 +821,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/0be0a5676cfa38faaa5782c3540a75e0/f217344f7d424f1ebcb637a350211209.jpg?imwidth=1200",
     "image_file": "images/zalando-10904081226980-0.jpg",
     "returned_order": false,
-    "thread_id": "18366170c37537f7"
+    "thread_id": "18366170c37537f7",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904081299511-0",
@@ -797,7 +842,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/5f240c9ec4ce45da88dd79c64a157057/aab584db57fa490c834f5736e343cb7c.jpg?imwidth=1200",
     "image_file": "images/zalando-10904081299511-0.jpg",
     "returned_order": false,
-    "thread_id": "1836f27328fe2056"
+    "thread_id": "1836f27328fe2056",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904091800428-0",
@@ -817,7 +863,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/c5d0e974b00f498792bce84d1f1139a0/1405aa34041f4b0181081ce6abfff09a.jpg?imwidth=1200",
     "image_file": "images/zalando-10904091800428-0.jpg",
     "returned_order": false,
-    "thread_id": "187650cc4023dec2"
+    "thread_id": "187650cc4023dec2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904091800428-1",
@@ -837,7 +884,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/4996da07d91f49188b625c9eee3dd494/bca08115352a4e46a25775ed5c2ef886.jpg?imwidth=1200",
     "image_file": "images/zalando-10904091800428-1.jpg",
     "returned_order": false,
-    "thread_id": "187650cc4023dec2"
+    "thread_id": "187650cc4023dec2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904091800428-2",
@@ -857,7 +905,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/76474241703c46809bc3e7452f14ef71/0f95a3d83cdf4064ae256858226fd432.jpg?imwidth=1200",
     "image_file": "images/zalando-10904091800428-2.jpg",
     "returned_order": false,
-    "thread_id": "187650cc4023dec2"
+    "thread_id": "187650cc4023dec2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904091800428-3",
@@ -877,7 +926,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/2ad2d27862d543079d0ae60de44e196b/80df6a782c0242fc9355a9cef3f26472.jpg?imwidth=1200",
     "image_file": "images/zalando-10904091800428-3.jpg",
     "returned_order": false,
-    "thread_id": "187650cc4023dec2"
+    "thread_id": "187650cc4023dec2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904091800428-4",
@@ -897,7 +947,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/ff2ff53c4f0f3a47bdd2bb1588a109b0/312a7bf15c5b46939f8ab31b923a7372.jpg?imwidth=1200",
     "image_file": "images/zalando-10904091800428-4.jpg",
     "returned_order": false,
-    "thread_id": "187650cc4023dec2"
+    "thread_id": "187650cc4023dec2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904092068082-0",
@@ -917,7 +968,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/0bab67273acc4e43bb970d2ff0311b56/1a9be97a53124218970ce6620819f723.jpg?imwidth=1200",
     "image_file": "images/zalando-10904092068082-0.jpg",
     "returned_order": false,
-    "thread_id": "18780405283bb409"
+    "thread_id": "18780405283bb409",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904096750588-0",
@@ -937,7 +989,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/dfeb8e23f8d948c09dd6b2ef6b25d2a5/55a0d3ef876949ffb8375a6586fdf418.jpg?imwidth=1200",
     "image_file": "images/zalando-10904096750588-0.jpg",
     "returned_order": false,
-    "thread_id": "1895edf6022e287d"
+    "thread_id": "1895edf6022e287d",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904103710406-0",
@@ -957,7 +1010,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/4a14120bc94231d5ac1671d035be0f21/fbac0d723e3f41f29c7146b2c997da9b.jpg?imwidth=1200",
     "image_file": "images/zalando-10904103710406-0.jpg",
     "returned_order": false,
-    "thread_id": "18c2b510e8458fec"
+    "thread_id": "18c2b510e8458fec",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904108786899-0",
@@ -977,7 +1031,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/eb786f5df073447b868c2ea48ebee224/946a05dcbeea42dab5f45d7d3351c605.jpg?imwidth=1200",
     "image_file": "images/zalando-10904108786899-0.jpg",
     "returned_order": false,
-    "thread_id": "18e4ba3633d0cc4e"
+    "thread_id": "18e4ba3633d0cc4e",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904108786899-1",
@@ -997,7 +1052,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/cf54550ee6543d788d3b288881881a3e/71153881e0014fb28ceec5f33d1eb2dd.jpg?imwidth=1200",
     "image_file": "images/zalando-10904108786899-1.jpg",
     "returned_order": false,
-    "thread_id": "18e4ba3633d0cc4e"
+    "thread_id": "18e4ba3633d0cc4e",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-0",
@@ -1017,7 +1073,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/1978625a453f44669813a922ca457f79/0a189f3b55424d29a3d2e239568adad8.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-0.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-1",
@@ -1037,7 +1094,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/fafe6671b1b249369c7f5890a04c1be7/876989b7a4df4b49a5b5e74221b20187.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-1.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-2",
@@ -1057,7 +1115,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/a4cd7bb6ed9c42efacfd6bd066b83a56/c1c99e747bfb4549a325286086ae5e03.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-2.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-3",
@@ -1077,7 +1136,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/126d7a0a2df134f9b586f82e4884a702/23876a69395942fca96ab1772e20464a.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-3.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-4",
@@ -1097,7 +1157,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/7f6e3e6682414afa8f4b3aa09563e8c5/fc634dd644eb47fca291ef253bc199a6.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-4.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-5",
@@ -1117,7 +1178,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/f90a5acbea014ba9bea3e0ad8df7e763/f563eefae07d442ea6892c877a512302.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-5.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10904110787269-6",
@@ -1137,7 +1199,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/1d71e4003182363c84a3c0328c223339/83612c114f514e10a9c82c43218e2f17.jpg?imwidth=1200",
     "image_file": "images/zalando-10904110787269-6.jpg",
     "returned_order": false,
-    "thread_id": "18ef2e9ed5ff5382"
+    "thread_id": "18ef2e9ed5ff5382",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-0",
@@ -1157,7 +1220,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/b1d55a7e481347218b8e233ce50692c1/63f3a52501904c559b04b7b625d7fe63.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-0.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-1",
@@ -1177,7 +1241,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/fe1b45790dcb414aa42346d0d427c3c7/87851834f7ec411c999a3bbf1d9b0604.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-1.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-2",
@@ -1197,7 +1262,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/460d683428cc46eb98d36bc3c3871d6a/c15150a8050f4bc0944f0c18c78a9dbb.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-2.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-3",
@@ -1217,7 +1283,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/253547c270f84840b5218064adbd040a/ec2ccdf3f9424f1d9beca65f794b2017.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-3.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-4",
@@ -1237,7 +1304,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/be272e71a7f249a2ad2c1ab070e528ea/f5b8d27e44d54984ad23facc367e653d.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-4.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-5",
@@ -1257,7 +1325,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/8599efcb9c654ea4a274a0b62293b507/6f122517b7b145b7b34fe2f169ba2f2c.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-5.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-6",
@@ -1277,7 +1346,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/9cf1da681f934946a966c144bce3965a/60b65252ec5843b1a54deb659657fa66.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-6.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-7",
@@ -1297,7 +1367,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/5b9f6517190940dda637eb16bf234afa/613d6f4e34eb483fb7cfc141657823b6.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-7.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-8",
@@ -1317,7 +1388,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/b99721acab534558a9655d5c0e03b3e4/42bb725e51d642a78a37978139a84dfa.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-8.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913130211188-9",
@@ -1337,7 +1409,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/948a7ee80f7a4facbfddaacd91f6ea31/4e95938a461a45909d3d11a7d55301ac.jpg?imwidth=1200",
     "image_file": "images/zalando-10913130211188-9.jpg",
     "returned_order": true,
-    "thread_id": "195e7817d9d76ea2"
+    "thread_id": "195e7817d9d76ea2",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10906130426135-0",
@@ -1357,7 +1430,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/948a7ee80f7a4facbfddaacd91f6ea31/4e95938a461a45909d3d11a7d55301ac.jpg?imwidth=1200",
     "image_file": "images/zalando-10906130426135-0.jpg",
     "returned_order": false,
-    "thread_id": "195f34c2f2ccf936"
+    "thread_id": "195f34c2f2ccf936",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913133187815-0",
@@ -1377,7 +1451,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/6f7d017d29bf3d82a9400346f8a8a41e/0141cb11fde9461e9f53621e457e0737.jpg?imwidth=1200",
     "image_file": "images/zalando-10913133187815-0.jpg",
     "returned_order": true,
-    "thread_id": "196e532d1a696cb6"
+    "thread_id": "196e532d1a696cb6",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913133187815-1",
@@ -1397,7 +1472,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/e6d1fc9bd5f64639823a9a07efe7fcd7/4e636f05b97a40ae9a2afc0ed5d702a9.jpg?imwidth=1200",
     "image_file": "images/zalando-10913133187815-1.jpg",
     "returned_order": true,
-    "thread_id": "196e532d1a696cb6"
+    "thread_id": "196e532d1a696cb6",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10913133187815-2",
@@ -1417,7 +1493,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/b83c9a18c49b448c9a2850edbecfbd24/4ac91cabe15c4d75ac5f15c842ff54f3.jpg?imwidth=1200",
     "image_file": "images/zalando-10913133187815-2.jpg",
     "returned_order": true,
-    "thread_id": "196e532d1a696cb6"
+    "thread_id": "196e532d1a696cb6",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10906142320201-0",
@@ -1437,7 +1514,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/8e30bbe86aa84abcaaccb24503cecdb2/01752ed9e77b408ca1a193dfbc6aa882.jpg?imwidth=1200",
     "image_file": "images/zalando-10906142320201-0.jpg",
     "returned_order": false,
-    "thread_id": "19a4adb10d38c229"
+    "thread_id": "19a4adb10d38c229",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10906142320201-1",
@@ -1457,7 +1535,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/7281f89961d4408aa81fdb4cee3aeaf4/25b025895fb84ccdbd3f688df502cf11.jpg?imwidth=1200",
     "image_file": "images/zalando-10906142320201-1.jpg",
     "returned_order": false,
-    "thread_id": "19a4adb10d38c229"
+    "thread_id": "19a4adb10d38c229",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10906150679904-0",
@@ -1477,7 +1556,8 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/2018aef473614f22bdab2539efcad8cf/460b9e2b9a5447f9822d2839c5e391e7.jpg?imwidth=1200",
     "image_file": "images/zalando-10906150679904-0.jpg",
     "returned_order": false,
-    "thread_id": "19cd9d47548823dd"
+    "thread_id": "19cd9d47548823dd",
+    "image_origin": "email"
   },
   {
     "id": "zalando-10906150760761-0",
@@ -1497,6 +1577,7 @@
     "image_url": "https://img01.ztat.net/article/spp-media-p1/d15cf43c6bef4f71be6fe0533ff9fce6/0bac9f30a4364e8ba2ac7bef7a82b8dc.jpg?imwidth=1200",
     "image_file": "images/zalando-10906150760761-0.jpg",
     "returned_order": false,
-    "thread_id": "19cded159a224666"
+    "thread_id": "19cded159a224666",
+    "image_origin": "email"
   }
 ]
