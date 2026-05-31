@@ -1,9 +1,22 @@
 #!/usr/bin/env python3
 """Build a self-contained index.html wardrobe gallery from wardrobe.json."""
-import json, os, html, datetime
+import json, os, html, datetime, base64, mimetypes
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 data = json.load(open(os.path.join(ROOT, "data", "wardrobe.json")))
+
+# STANDALONE mode: inline every image as a base64 data URI so the single
+# HTML file renders with no images/ folder. Triggered by env WARDROBE_EMBED=1.
+EMBED = os.environ.get("WARDROBE_EMBED") == "1"
+OUT_NAME = "wardrobe_standalone.html" if EMBED else "index.html"
+if EMBED:
+    for r in data:
+        f = r.get("image_file")
+        p = os.path.join(ROOT, f) if f else None
+        if p and os.path.exists(p):
+            mime = mimetypes.guess_type(p)[0] or "image/jpeg"
+            b64 = base64.b64encode(open(p, "rb").read()).decode()
+            r["image_file"] = f"data:{mime};base64,{b64}"
 
 # sort newest first
 data.sort(key=lambda r: (r.get("order_date") or "", r.get("id")), reverse=True)
@@ -183,5 +196,5 @@ repl = {
 out = doc
 for k, v in repl.items():
     out = out.replace(k, v)
-open(os.path.join(ROOT, "index.html"), "w").write(out)
-print(f"Wrote index.html — {total} items, {with_img} photos, {len(brands)} brands, spend {spend:.0f} zł")
+open(os.path.join(ROOT, OUT_NAME), "w").write(out)
+print(f"Wrote {OUT_NAME} — {total} items, {with_img} photos, {len(brands)} brands, spend {spend:.0f} zł")
