@@ -1,0 +1,6 @@
+# Raw Gmail thread dumps — contain full email bodies incl. delivery address (PII).
+# Kept locally for re-parsing; not committed.
+data/raw/
+
+# Generated 15MB single-file build (images inlined as base64); regenerate with WARDROBE_EMBED=1
+wardrobe_standalone.html
