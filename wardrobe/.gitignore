@@ -1,0 +1,3 @@
+# Raw Gmail thread dumps — contain full email bodies incl. delivery address (PII).
+# Kept locally for re-parsing; not committed.
+data/raw/
