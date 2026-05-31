@@ -38,7 +38,7 @@ def unescape_url(u):
 CATEGORY_RULES = [
     ("shoes",     r"(buty|sneaker|trampki|obuwie|p[oó]?[łl]but|botki|sanda[łl]|klapki|japonki|trzewiki|t[eę]nis[oó]wki|mokasyny|kozaki|adidasy|air\s|cortez|gazelle|samba|jordan)"),
     ("outerwear", r"(kurtka|p[łl]aszcz|parka|kamizelka|puchow|wiatr[oó]wka|jacket|coat|softshell)"),
-    ("knitwear",  r"(sweter|sweterek|kardigan|golf|bluza|hoodie|sweatshirt|dzianin)"),
+    ("knitwear",  r"(sweter|sweterek|kardigan|golf|bluza|hoodie|sweatshirt)"),
     ("tops",      r"(koszulka|koszula|t[\s-]?shirt|tshirt|\btop\b|polo|podkoszul|bluzka|\btee\b|longsleeve)"),
     ("bottoms",   r"(spodnie|szorty|spodenki|jeansy|d[zż]insy|legginsy|chinos|joggery|trousers|shorts|sp[oó]dnic|bermud)"),
     ("accessory", r"(czapka|czapk|\bszal\b|szalik|r[eę]kawicz|pasek|portfel|torba|plecak|nerka|opaska|skarpet|okulary|zegarek|cap\b|beanie|\bbag\b|belt|duffel|m[uü]tze|gymsack|worek)"),

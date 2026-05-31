@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Build the interactive wardrobe app from wardrobe.json.
 
-UX: Claude-inspired warm light theme (+ dark toggle). Privacy-first cards —
-the FRONT shows only the photo plus status & actions (reverse-searched marker,
-'Possibly returned' with 'I returned it'/'I have it', and 'I no longer have it').
-The PRIVATE purchase details (brand, product name, price, shop, size, date,
-order #) live behind an (i) detail popup. Removals archive to 'Past items'
-(reversible, with Undo). All state persists in the browser (localStorage).
-
+Moodboard UX: cards are JUST the photo, with up to four corner icons —
+  top-left  (i)        -> detail popup with private info (brand/name/price/shop…)
+  top-right trash      -> confirm -> move to "My bin" (reversible)
+  bottom-left caution  -> reverse-searched photo -> disclaimer popup
+  bottom-right return  -> "Did you return this?" -> Returned (archive) / Kept (clear)
+Claude-inspired warm light theme + dark toggle; archive to "My bin" with Undo +
+Restore; all state persists in the browser (localStorage).
 EMBED mode (WARDROBE_EMBED=1) inlines every image as base64 -> single file.
 """
 import json, os, base64, mimetypes
@@ -35,13 +35,13 @@ DOC = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your Wardrobe</title>
+<title>Your Awesome Digital Wardrobe</title>
 <style>
 :root{
   --bg:#F7F4ED; --surface:#FFFFFF; --surface-2:#F2EEE4; --text:#23211C;
   --muted:#6E6A60; --faint:#9A958A; --border:#E7E1D4; --border-strong:#D8D0BF;
   --accent:#C2603F; --accent-ink:#fff; --accent-soft:#F3E3DB;
-  --returned:#A9701A; --returned-soft:#F6EBD5;
+  --returned:#B5791C; --returned-soft:#F6EBD5;
   --good:#3E7A52; --good-soft:#E4EFE6;
   --shadow:0 1px 2px rgba(40,30,15,.04),0 6px 22px rgba(40,30,15,.07);
   --radius:16px; --thumb:#FFFFFF;
@@ -65,10 +65,9 @@ svg{width:1em;height:1em;display:block}
 
 header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);
   backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
-.head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 0 6px}
+.head-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 8px}
 .brandmark{font-family:var(--serif);font-size:26px;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
 .brandmark .dot{color:var(--accent)}
-.tagline{color:var(--muted);font-size:13px;margin-top:2px;font-style:italic}
 .icon-btn{appearance:none;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);
   width:38px;height:38px;border-radius:10px;font-size:18px;display:grid;place-items:center;cursor:pointer;transition:.15s}
 .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
@@ -83,10 +82,10 @@ header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 8
 
 .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:18px 0 6px}
 .field{position:relative;display:flex;align-items:center}
-.field svg{position:absolute;left:11px;color:var(--faint);font-size:16px;pointer-events:none}
+.field svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--faint);width:16px;height:16px;pointer-events:none}
 input[type=search],select{font:inherit;font-size:13.5px;color:var(--text);background:var(--surface);
   border:1px solid var(--border-strong);border-radius:10px;padding:9px 12px}
-input[type=search]{padding-left:34px;min-width:230px}
+input[type=search]{padding-left:35px;min-width:230px}
 select{cursor:pointer}
 .toggle{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;cursor:pointer;user-select:none}
 .switch{position:relative;width:38px;height:22px;background:var(--surface-2);border:1px solid var(--border-strong);border-radius:999px;transition:.18s}
@@ -102,82 +101,56 @@ select{cursor:pointer}
 .chip .n{opacity:.7;font-size:11.5px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;padding-bottom:80px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;
-  flex-direction:column;box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s,opacity .34s}
+.card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  aspect-ratio:3/4;box-shadow:var(--shadow);transition:transform .16s,box-shadow .16s,opacity .34s}
 .card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(40,30,15,.06),0 14px 34px rgba(40,30,15,.12)}
 .card.leaving{opacity:0;transform:scale(.94) translateY(6px);pointer-events:none}
-.thumb{position:relative;aspect-ratio:3/4;background:var(--thumb)}
-.thumb .photo{display:flex;width:100%;height:100%;align-items:center;justify-content:center;cursor:pointer}
-.thumb img{width:100%;height:100%;object-fit:contain}
-.thumb .noimg{font-size:46px;opacity:.5}
-.card.past .thumb img{filter:grayscale(.55) opacity(.82)}
-.info-btn{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;
-  background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--text);display:grid;place-items:center;font-size:16px;
-  backdrop-filter:blur(4px);box-shadow:0 1px 3px rgba(0,0,0,.12);transition:.15s}
-.info-btn:hover{color:var(--accent);transform:scale(1.06)}
-.rev-glyph{position:absolute;top:8px;left:8px;width:26px;height:26px;border-radius:8px;color:var(--returned);
-  background:color-mix(in srgb,var(--surface) 82%,transparent);display:grid;place-items:center;font-size:15px;backdrop-filter:blur(4px);
-  box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.photo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--thumb);cursor:pointer}
+.photo img{width:100%;height:100%;object-fit:contain}
+.photo .noimg{font-size:46px;opacity:.5}
+.card.past .photo img{filter:grayscale(.55) opacity(.82)}
 
-.body{padding:12px 13px 13px;display:flex;flex-direction:column;gap:10px;flex:1}
-.srow{display:flex;flex-direction:column;gap:7px}
-.sline{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
-.sline svg{font-size:15px;flex:0 0 auto}
-.srow.rev .sline svg{color:var(--returned)}
-.srow.ret .sline svg{color:var(--accent)}
-.sline .lab b{font-weight:600;color:var(--text)}
-.info{position:relative;color:var(--faint);cursor:help;display:inline-flex;margin-left:auto}
-.info svg{font-size:14px}
-.info .tip{position:absolute;bottom:150%;right:-6px;width:215px;background:var(--text);color:var(--bg);font-size:11.5px;
-  line-height:1.4;padding:9px 11px;border-radius:9px;opacity:0;visibility:hidden;transition:.14s;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-.info .tip::after{content:"";position:absolute;top:100%;right:10px;border:6px solid transparent;border-top-color:var(--text)}
-.info:hover .tip{opacity:1;visibility:visible}
-.ctas{display:flex;gap:7px}
-.cta{appearance:none;font:inherit;font-size:12px;cursor:pointer;border-radius:8px;padding:6px 11px;border:1px solid var(--border-strong);
-  background:var(--surface);color:var(--text);transition:.14s;flex:1}
-.cta:hover{border-color:var(--accent)}
-.cta.primary{background:var(--returned-soft);border-color:transparent;color:var(--returned);font-weight:600}
-.cta.primary:hover{background:var(--returned);color:#fff}
-.cta.ghost:hover{background:var(--good-soft);border-color:var(--good);color:var(--good)}
-.hr{height:0;border-top:1px dashed var(--border-strong);margin:1px 0}
-.nolonger{appearance:none;width:100%;background:none;border:0;font:inherit;font-size:12.5px;color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;gap:7px;justify-content:center;padding:5px;border-radius:8px;transition:.14s}
-.nolonger:hover{color:var(--accent);background:var(--surface-2)}
-.nolonger svg{font-size:15px}
-
-.past-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.reason{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
-.reason .pill{background:var(--surface-2);border-radius:999px;padding:2px 9px;font-weight:600;font-size:11px;color:var(--text)}
-.restore{appearance:none;font:inherit;font-size:12px;cursor:pointer;border:1px solid var(--border-strong);background:var(--surface);
-  color:var(--text);border-radius:8px;padding:6px 11px;display:flex;align-items:center;gap:6px;transition:.14s}
-.restore:hover{border-color:var(--accent);color:var(--accent)}
+.cbtn{position:absolute;width:33px;height:33px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
+  font-size:16px;background:color-mix(in srgb,var(--surface) 82%,transparent);color:var(--text);backdrop-filter:blur(6px);
+  box-shadow:0 1px 5px rgba(0,0,0,.16);transition:.15s;opacity:.94;z-index:2}
+.cbtn:hover{opacity:1;transform:scale(1.09);color:var(--accent)}
+.cbtn.tl{top:9px;left:9px}.cbtn.tr{top:9px;right:9px}.cbtn.bl{bottom:9px;left:9px}.cbtn.br{bottom:9px;right:9px}
+.cbtn.trash:hover{color:#c0392b}
+.cbtn.caution{color:var(--returned)}
+.cbtn.ret{color:#fff;background:var(--returned);box-shadow:0 2px 9px color-mix(in srgb,var(--returned) 55%,transparent)}
+.cbtn.ret:hover{color:#fff;filter:brightness(1.06)}
+.cbtn.ret::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--returned);opacity:.55;animation:pulse 1.9s ease-out infinite;pointer-events:none}
+@keyframes pulse{0%{transform:scale(.92);opacity:.55}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
 
 .empty{text-align:center;color:var(--muted);padding:80px 20px}
 .empty .big{font-size:40px;opacity:.5;margin-bottom:12px}
 .empty h3{margin:0 0 6px;font-family:var(--serif);font-weight:500;color:var(--text);font-size:20px}
 .legend{color:var(--faint);font-size:12px;padding:0 0 60px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
 .legend span{display:flex;align-items:center;gap:6px}
+.legend svg{width:15px;height:15px}
 
 .backdrop{position:fixed;inset:0;background:rgba(20,15,8,.46);backdrop-filter:blur(2px);z-index:60;display:none;
   align-items:center;justify-content:center;padding:20px}
 .backdrop.open{display:flex;animation:fade .15s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-.modal{background:var(--surface);border:1px solid var(--border-strong);border-radius:18px;max-width:404px;width:100%;
+.modal{background:var(--surface);border:1px solid var(--border-strong);border-radius:18px;max-width:412px;width:100%;
   padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:rise .18s ease-out}
 @keyframes rise{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
 .modal .mi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:14px;background:var(--accent-soft);color:var(--accent)}
+.modal .mi.warn{background:var(--returned-soft);color:var(--returned)}
 .modal h2{margin:0 0 8px;font-family:var(--serif);font-weight:500;font-size:20px}
 .modal p{margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.5}
 .modal p b{color:var(--text)}
-.modal .row{display:flex;gap:10px;justify-content:flex-end}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 .btn{appearance:none;font:inherit;font-size:14px;cursor:pointer;border-radius:10px;padding:10px 16px;border:1px solid var(--border-strong);
   background:var(--surface);color:var(--text);transition:.14s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
 .btn:hover{background:var(--surface-2)}
-.btn svg{font-size:16px}
+.btn svg{width:16px;height:16px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .btn.primary:hover{filter:brightness(1.05)}
+.btn.warn{background:var(--returned);border-color:var(--returned);color:#fff;font-weight:600}
+.btn.warn:hover{filter:brightness(1.05)}
 
-/* detail popup (private info) */
 .modal.detail{max-width:760px;padding:0;overflow:hidden}
 .dt{display:grid;grid-template-columns:300px 1fr}
 .dt-img{background:var(--thumb);display:grid;place-items:center;padding:18px;min-height:260px}
@@ -185,9 +158,9 @@ select{cursor:pointer}
 .dt-img .noimg{font-size:64px;opacity:.4}
 .dt-info{padding:26px 26px 24px;position:relative}
 .dt-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:9px;border:1px solid var(--border);
-  background:var(--surface);color:var(--muted);display:grid;place-items:center;cursor:pointer;font-size:16px}
+  background:var(--surface);color:var(--muted);display:grid;place-items:center;cursor:pointer}
 .dt-close:hover{color:var(--accent);border-color:var(--accent)}
-.dt-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.dt-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
 .dt-brand{color:var(--accent);font-weight:600;font-size:13.5px}
 .dt-name{font-family:var(--serif);font-size:22px;line-height:1.25;margin:2px 0 18px}
 .dt-grid{display:grid;grid-template-columns:auto 1fr;gap:11px 20px;margin:0 0 18px;font-size:13.5px}
@@ -207,16 +180,13 @@ select{cursor:pointer}
 <body>
 <header><div class="wrap">
   <div class="head-top">
-    <div>
-      <div class="brandmark"><span class="dot">●</span> Your Wardrobe</div>
-      <div class="tagline">your closet, quietly reconstructed from your inbox</div>
-    </div>
+    <div class="brandmark"><span class="dot">●</span> Your Awesome Digital Wardrobe</div>
     <button class="icon-btn" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme"></button>
   </div>
   <div class="stats" id="stats"></div>
   <div class="tabs">
     <button class="tab active" data-view="active" id="tabActive">My wardrobe <span class="count" id="cActive">0</span></button>
-    <button class="tab" data-view="past" id="tabPast">Past items <span class="count" id="cPast">0</span></button>
+    <button class="tab" data-view="past" id="tabPast">My bin <span class="count" id="cPast">0</span></button>
   </div>
 </div></header>
 
@@ -240,12 +210,12 @@ select{cursor:pointer}
 <script>
 const DATA = %(data_json)s;
 const CAT_ICON = %(cat_icon)s;
-const CAT_LABEL = {tops:'Tops',bottoms:'Bottoms',shoes:'Shoes',outerwear:'Outerwear',knitwear:'Knitwear',accessory:'Accessories',underwear:'Underwear',other:'Other'};
+const CAT_LABEL = {tops:'Tops',bottoms:'Bottoms',shoes:'Shoes',outerwear:'Outerwear',knitwear:'Sweaters & Hoodies',accessory:'Accessories',underwear:'Underwear',other:'Other'};
 const S = p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const SVG = {
   rev: S('<rect x="2.5" y="4.7" width="13" height="12.6" rx="2"/><circle cx="6.4" cy="8.4" r="1.05"/><path d="M3 14.4l3.2-3 2.6 2.4 1.9-1.7 2.8 2.6"/><circle cx="18.2" cy="6.2" r="3.5" fill="var(--surface)"/><path d="M18.2 4.7v2.1"/><circle cx="18.2" cy="8.7" r=".55" fill="currentColor" stroke="none"/>'),
   ret: S('<path d="M6.5 8H20"/><path d="M16.5 4.5 20 8l-3.5 3.5"/><path d="M17.5 16H4"/><path d="M7.5 12.5 4 16l3.5 3.5"/>'),
-  archive: S('<rect x="3.5" y="4.2" width="17" height="4" rx="1"/><path d="M5.2 8.2v10.6a1 1 0 0 0 1 1h11.6a1 1 0 0 0 1-1V8.2"/><path d="M10 12h4"/>'),
+  trash: S('<path d="M4 7h16"/><path d="M9.5 7V5.4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V7"/><path d="M6.2 7l.9 12.1a1.6 1.6 0 0 0 1.6 1.4h6.6a1.6 1.6 0 0 0 1.6-1.4L17.8 7"/><path d="M10 11v6M14 11v6"/>'),
   info: S('<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.6" r=".7" fill="currentColor" stroke="none"/>'),
   restore: S('<path d="M3.5 12a8.5 8.5 0 1 0 2.7-6.2"/><path d="M3 4.5v4h4"/>'),
   ext: S('<path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M19 13.5V19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5.5"/>'),
@@ -258,6 +228,7 @@ const LS_STATE='wardrobe.state.v1', LS_THEME='wardrobe.theme.v1';
 let state={}; try{state=JSON.parse(localStorage.getItem(LS_STATE)||'{}');}catch(e){}
 const saveState=()=>{try{localStorage.setItem(LS_STATE,JSON.stringify(state));}catch(e){}};
 const st=id=>state[id]||(state[id]={});
+const gid=id=>document.getElementById(id);
 let view='active', cat='';
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const isArchived=r=>!!(state[r.id]&&state[r.id].archived);
@@ -266,57 +237,32 @@ const byId=id=>DATA.find(r=>r.id===id);
 const cssEsc=s=>(window.CSS&&CSS.escape)?CSS.escape(s):s.replace(/"/g,'\\"');
 
 function applyTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem(LS_THEME,t);}catch(e){}
-  document.getElementById('themeToggle').innerHTML=(t==='dark'?SVG.sun:SVG.moon);}
+  gid('themeToggle').innerHTML=(t==='dark'?SVG.sun:SVG.moon);}
 applyTheme((()=>{try{return localStorage.getItem(LS_THEME);}catch(e){return null}})() || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
-document.getElementById('themeToggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
-document.getElementById('searchIcon').innerHTML=SVG.search;
+gid('themeToggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+gid('searchIcon').innerHTML=SVG.search;
 
-/* CARD — photo + status/actions only (no private text) */
+/* CARD — photo only, controls in the four corners */
 function card(r){
-  const archived=isArchived(r), s=state[r.id]||{};
+  const archived=isArchived(r);
   const img=r.image_file?`<img loading="lazy" src="${esc(r.image_file)}" alt="">`:`<div class="noimg">${CAT_ICON[r.category]||'👕'}</div>`;
   const rev=(!archived&&r.image_origin==='reverse-search');
-  let body='';
+  let icons=`<button class="cbtn tl" data-act="detail" title="Details" aria-label="Details">${SVG.info}</button>`;
   if(archived){
-    const label=s.reason==='returned'?'Returned to shop':'No longer owned';
-    const when=s.archivedAt?new Date(s.archivedAt).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}):'';
-    body=`<div class="past-foot"><span class="reason"><span class="pill">${label}</span>${when}</span>
-      <button class="restore" data-act="restore">${SVG.restore} Restore</button></div>`;
+    icons+=`<button class="cbtn tr" data-act="restore" title="Restore to wardrobe" aria-label="Restore">${SVG.restore}</button>`;
   }else{
-    let rows='';
-    if(rev){
-      rows+=`<div class="srow rev"><div class="sline">${SVG.rev}
-        <span class="lab"><b>Reverse-searched</b> · photo may not be exact</span>
-        <span class="info">${SVG.info}<span class="tip">Heads up: this photo was auto-found via reverse image search${r.image_credit?` (${esc(r.image_credit)})`:''} and may not be the exact item.</span></span>
-      </div></div>`;
-    }
-    if(showRet(r)){
-      rows+=`<div class="srow ret"><div class="sline">${SVG.ret}
-        <span class="lab"><b>Possibly returned</b></span>
-        <span class="info">${SVG.info}<span class="tip">This order included a return, so you may have sent this piece back. Let us know to keep your wardrobe accurate.</span></span>
-      </div><div class="ctas">
-        <button class="cta primary" data-act="returned">I returned it</button>
-        <button class="cta ghost" data-act="keep">I have it</button>
-      </div></div>`;
-    }
-    body=`${rows}${rows?'<div class="hr"></div>':''}
-      <button class="nolonger" data-act="nolonger">${SVG.archive} I no longer have it</button>`;
+    icons+=`<button class="cbtn tr trash" data-act="trash" title="Remove from wardrobe" aria-label="Remove">${SVG.trash}</button>`;
+    if(rev) icons+=`<button class="cbtn bl caution" data-act="disclaimer" title="About this photo" aria-label="About this photo">${SVG.rev}</button>`;
+    if(showRet(r)) icons+=`<button class="cbtn br ret" data-act="returnq" title="Did you return this?" aria-label="Did you return this?">${SVG.ret}</button>`;
   }
   return `<div class="card ${archived?'past':''}" data-id="${esc(r.id)}" ${rev?'data-rev="1"':''} ${(!archived&&showRet(r))?'data-ret="1"':''}>
-    <div class="thumb">
-      <div class="photo" data-act="detail">${img}</div>
-      ${rev?`<span class="rev-glyph" title="Photo may be inexact">${SVG.rev}</span>`:''}
-      <button class="info-btn" data-act="detail" aria-label="Details" title="Details">${SVG.info}</button>
-    </div>
-    <div class="body">${body}</div>
-  </div>`;
+    <div class="photo" data-act="detail">${img}</div>${icons}</div>`;
 }
 
-/* DETAIL POPUP — the private purchase info */
+/* DETAIL popup — the private purchase info */
 function openDetail(id){
-  const r=byId(id), s=state[id]||{}, archived=isArchived(r);
-  const bd=document.getElementById('backdrop'), m=document.getElementById('modal');
-  m.className='modal detail';
+  const r=byId(id);
+  const bd=gid('backdrop'), m=gid('modal'); m.className='modal detail';
   const img=r.image_file?`<img src="${esc(r.image_file)}" alt="${esc(r.name)}">`:`<div class="noimg">${CAT_ICON[r.category]||'👕'}</div>`;
   const rows=[['Shop',esc(r.retailer)],['Price',r.price?`<span class="price">${esc(r.price)}</span>`:'—'],
     ['Size',esc(r.size)||'—'],['Ordered',esc(r.order_date)||'—'],
@@ -331,50 +277,67 @@ function openDetail(id){
       <div class="dt-name">${esc(r.name)}</div>
       ${grid}${link}
     </div></div>`;
-  bd.classList.add('open');
-  const close=()=>{bd.classList.remove('open');m.className='modal';};
-  m.querySelector('[data-x]').onclick=close;
-  bd.onclick=ev=>{if(ev.target===bd)close();};
-  document.onkeydown=ev=>{if(ev.key==='Escape')close();};
+  openBackdrop();
 }
+
+/* generic action sheet */
+function sheet({icon,iconWarn,title,body,buttons}){
+  const m=gid('modal'); m.className='modal';
+  const btns=buttons.map((b,i)=>`<button class="btn ${b.kind||''}" data-i="${i}">${b.label}</button>`).join('');
+  m.innerHTML=`<div class="mi ${iconWarn?'warn':''}">${icon}</div><h2>${title}</h2><p>${body}</p><div class="row">${btns}</div>`;
+  buttons.forEach((b,i)=>{m.querySelector(`[data-i="${i}"]`).onclick=()=>{closeBackdrop();b.act&&b.act();};});
+  openBackdrop();
+  (m.querySelector('.btn.primary')||m.querySelector('.btn.warn')||m.querySelector('.btn')).focus();
+}
+function openBackdrop(){const bd=gid('backdrop');bd.classList.add('open');
+  bd.onclick=ev=>{if(ev.target===bd)closeBackdrop();};
+  document.onkeydown=ev=>{if(ev.key==='Escape')closeBackdrop();};
+  const x=gid('modal').querySelector('[data-x]'); if(x)x.onclick=closeBackdrop;}
+function closeBackdrop(){const bd=gid('backdrop');bd.classList.remove('open');gid('modal').className='modal';}
+
+function confirmTrash(id){sheet({icon:SVG.trash,title:'Remove from your wardrobe?',
+  body:`We’ll move this item to <b>My bin</b>. Sold, gifted, or worn out — you can restore it anytime.`,
+  buttons:[{label:'Cancel'},{label:'Move to My bin',kind:'primary',act:()=>archive(id,'no_longer_owned')}]});}
+function askReturn(id){sheet({icon:SVG.ret,iconWarn:true,title:'Did you return this item?',
+  body:`If you sent it back, we’ll move it to <b>My bin</b>. If you kept it, we’ll just clear the flag.`,
+  buttons:[{label:'I kept it',act:()=>{st(id).kept=true;saveState();render();toast('Kept in your wardrobe');}},
+           {label:'I returned it',kind:'warn',act:()=>archive(id,'returned')}]});}
+function showDisclaimer(id){const r=byId(id);sheet({icon:SVG.rev,iconWarn:true,title:'About this photo',
+  body:`This photo was found by <b>reverse image search</b>${r.image_credit?` (${esc(r.image_credit)})`:''} because it wasn’t in your order email. The exact colour or version may differ from what you actually own.`,
+  buttons:[{label:'Got it',kind:'primary'}]});}
 
 /* init controls */
 (function(){
   const brands=[...new Set(DATA.map(r=>r.brand).filter(Boolean))].sort((a,b)=>a.toLowerCase().localeCompare(b.toLowerCase()));
   const years=[...new Set(DATA.map(r=>r.year).filter(Boolean))].sort().reverse();
-  document.getElementById('brand').insertAdjacentHTML('beforeend',brands.map(b=>`<option>${esc(b)}</option>`).join(''));
-  document.getElementById('year').insertAdjacentHTML('beforeend',years.map(y=>`<option>${y}</option>`).join(''));
+  gid('brand').insertAdjacentHTML('beforeend',brands.map(b=>`<option>${esc(b)}</option>`).join(''));
+  gid('year').insertAdjacentHTML('beforeend',years.map(y=>`<option>${y}</option>`).join(''));
 })();
 function updateChips(active){
   const counts={};active.forEach(r=>counts[r.category]=(counts[r.category]||0)+1);
   const cats=Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
-  document.getElementById('chips').innerHTML=
-    `<span class="chip ${cat===''?'active':''}" data-cat="">All <span class="n">${active.length}</span></span>`+
+  gid('chips').innerHTML=`<span class="chip ${cat===''?'active':''}" data-cat="">All <span class="n">${active.length}</span></span>`+
     cats.map(c=>`<span class="chip ${cat===c?'active':''}" data-cat="${c}">${CAT_ICON[c]||''} ${CAT_LABEL[c]||c} <span class="n">${counts[c]}</span></span>`).join('');
 }
 function updateStats(active){
   const spend=active.reduce((a,r)=>a+(r.price_pln||0),0);
   const brands=new Set(active.map(r=>r.brand).filter(Boolean));
   const ds=active.map(r=>r.order_date).filter(Boolean).sort();
-  const fmt=n=>Math.round(n).toLocaleString('fr-FR').replace(/ |,/g,' ');
-  document.getElementById('stats').innerHTML=
-    `<span><b id="shown">0</b> shown</span>`+
+  const fmt=n=>Math.round(n).toLocaleString('fr-FR').replace(/ |,/g,' ');
+  gid('stats').innerHTML=`<span><b id="shown">0</b> shown</span>`+
     `<span><b>${active.length}</b> items · <b>${active.filter(r=>r.image_file).length}</b> with photos</span>`+
-    `<span>tracked value <b>${fmt(spend)} zł</b></span>`+
-    (ds.length?`<span>${ds[0]} → ${ds[ds.length-1]}</span>`:'')+
+    `<span>tracked value <b>${fmt(spend)} zł</b></span>`+(ds.length?`<span>${ds[0]} → ${ds[ds.length-1]}</span>`:'')+
     `<span><b>${brands.size}</b> brands</span>`;
 }
 function render(){
   const active=DATA.filter(r=>!isArchived(r)), past=DATA.filter(isArchived);
-  document.getElementById('cActive').textContent=active.length;
-  document.getElementById('cPast').textContent=past.length;
-  document.getElementById('tabActive').classList.toggle('active',view==='active');
-  document.getElementById('tabPast').classList.toggle('active',view==='past');
-  document.getElementById('hideRetWrap').style.display=view==='active'?'':'none';
+  gid('cActive').textContent=active.length; gid('cPast').textContent=past.length;
+  gid('tabActive').classList.toggle('active',view==='active');
+  gid('tabPast').classList.toggle('active',view==='past');
+  gid('hideRetWrap').style.display=view==='active'?'':'none';
   updateStats(active); updateChips(active);
-  const q=document.getElementById('q').value.toLowerCase().trim();
-  const b=document.getElementById('brand').value,y=document.getElementById('year').value;
-  const ret=document.getElementById('retailer').value,hideRet=document.getElementById('hideRet').checked;
+  const q=gid('q').value.toLowerCase().trim(), b=gid('brand').value, y=gid('year').value;
+  const ret=gid('retailer').value, hideRet=gid('hideRet').checked;
   const list=(view==='active'?active:past).filter(r=>{
     if(cat&&r.category!==cat)return false;
     if(b&&r.brand!==b)return false;
@@ -384,59 +347,37 @@ function render(){
     if(q){const h=(r.brand+' '+r.name+' '+r.category+' '+r.retailer).toLowerCase();if(!h.includes(q))return false;}
     return true;
   });
-  document.getElementById('grid').innerHTML=list.map(card).join('');
-  document.getElementById('shown').textContent=list.length;
-  const e=document.getElementById('empty');
+  gid('grid').innerHTML=list.map(card).join('');
+  gid('shown').textContent=list.length;
+  const e=gid('empty');
   if(list.length){e.style.display='none';}
   else{e.style.display='block';e.innerHTML=view==='past'
-    ?`<div class="big">🧺</div><h3>No past items yet</h3><div>Anything you return or let go of lands here — and you can always bring it back.</div>`
+    ?`<div class="big">🗑️</div><h3>Your bin is empty</h3><div>Items you return or remove land here — restore them anytime.</div>`
     :`<div class="big">🔍</div><h3>Nothing matches</h3><div>Try clearing a filter or search term.</div>`;}
-  document.getElementById('legend').innerHTML=
-    `<span>${SVG.info} Tap for purchase details</span><span>${SVG.rev} Reverse-searched photo</span><span>${SVG.ret} Possibly returned</span>`;
+  gid('legend').innerHTML=`<span>${SVG.info} Details</span><span>${SVG.trash} Remove</span><span>${SVG.rev} Reverse-searched photo</span><span>${SVG.ret} Possibly returned</span>`;
 }
 
 /* interactions */
-document.getElementById('grid').addEventListener('click',e=>{
+gid('grid').addEventListener('click',e=>{
   const cardEl=e.target.closest('.card'); if(!cardEl)return; const id=cardEl.dataset.id;
   const actEl=e.target.closest('[data-act]'); if(!actEl)return;
-  const act=actEl.dataset.act;
-  if(act==='detail'){openDetail(id);return;}
-  if(act==='keep'){st(id).kept=true;saveState();leave(cardEl,render);toast(`Kept “${byId(id).name}” in your wardrobe`);return;}
-  if(act==='returned'){confirmReturned(id);return;}
-  if(act==='nolonger'){confirmNoLonger(id);return;}
-  if(act==='restore'){restore(id);return;}
+  const a=actEl.dataset.act;
+  if(a==='detail')openDetail(id);
+  else if(a==='trash')confirmTrash(id);
+  else if(a==='returnq')askReturn(id);
+  else if(a==='disclaimer')showDisclaimer(id);
+  else if(a==='restore')restore(id);
 });
-function leave(cardEl,cb){cardEl.classList.add('leaving');setTimeout(cb,360);}
+function leave(cardEl,cb){if(!cardEl){cb();return;}cardEl.classList.add('leaving');setTimeout(cb,360);}
 function archive(id,reason){const s=st(id);s.archived=true;s.reason=reason;s.archivedAt=new Date().toISOString();delete s.kept;saveState();
-  const c=document.querySelector(`.card[data-id="${cssEsc(id)}"]`),name=byId(id).name;
-  const done=()=>{render();toast(`“${name}” moved to Past items`,'Undo',()=>unarchive(id));};
-  c?leave(c,done):done();}
+  const c=document.querySelector(`.card[data-id="${cssEsc(id)}"]`);
+  leave(c,()=>{render();toast('Moved to My bin','Undo',()=>unarchive(id));});}
 function unarchive(id){const s=state[id]||{};delete s.archived;delete s.reason;delete s.archivedAt;saveState();render();}
-function restore(id){const name=byId(id).name,c=document.querySelector(`.card[data-id="${cssEsc(id)}"]`);
-  const done=()=>{unarchive(id);toast(`“${name}” is back in your wardrobe`);};
-  (c&&view==='past')?leave(c,done):(unarchive(id),toast(`“${name}” is back in your wardrobe`));}
-
-function modal({icon,title,body,confirm,onConfirm}){
-  const bd=document.getElementById('backdrop'),m=document.getElementById('modal');m.className='modal';
-  m.innerHTML=`<div class="mi">${icon}</div><h2>${title}</h2><p>${body}</p>
-    <div class="row"><button class="btn" data-x>Cancel</button><button class="btn primary" data-y>${confirm}</button></div>`;
-  bd.classList.add('open');
-  const close=()=>bd.classList.remove('open');
-  m.querySelector('[data-x]').onclick=close;
-  m.querySelector('[data-y]').onclick=()=>{close();onConfirm();};
-  bd.onclick=ev=>{if(ev.target===bd)close();};
-  document.onkeydown=ev=>{if(ev.key==='Escape')close();};
-  m.querySelector('[data-y]').focus();
-}
-function confirmReturned(id){const r=byId(id);modal({icon:SVG.ret,title:'Mark as returned?',
-  body:`We’ll move <b>this item</b> to your <b>Past items</b> as returned. You can restore it anytime.`,
-  confirm:'Yes, I returned it',onConfirm:()=>archive(id,'returned')});}
-function confirmNoLonger(id){modal({icon:SVG.archive,title:'Remove from your wardrobe?',
-  body:`We’ll move <b>this item</b> to <b>Past items</b>. Sold it, gave it away, or wore it out — either way you can restore it anytime.`,
-  confirm:'Move to Past items',onConfirm:()=>archive(id,'no_longer_owned')});}
+function restore(id){const c=document.querySelector(`.card[data-id="${cssEsc(id)}"]`);
+  (c&&view==='past')?leave(c,()=>{unarchive(id);toast('Back in your wardrobe');}):(unarchive(id),toast('Back in your wardrobe'));}
 
 function toast(msg,actionLabel,onAction){
-  const wrap=document.getElementById('toasts'),t=document.createElement('div');t.className='toast';
+  const wrap=gid('toasts'),t=document.createElement('div');t.className='toast';
   t.innerHTML=`<span>${msg}</span>`+(actionLabel?`<button>${actionLabel}</button>`:'');
   if(actionLabel)t.querySelector('button').onclick=()=>{onAction();dismiss();};
   wrap.appendChild(t);
@@ -444,8 +385,8 @@ function toast(msg,actionLabel,onAction){
   setTimeout(dismiss,5000);
 }
 
-['q','brand','year','retailer','hideRet'].forEach(id=>document.getElementById(id).addEventListener('input',render));
-document.getElementById('chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;cat=c.dataset.cat;render();});
+['q','brand','year','retailer','hideRet'].forEach(id=>gid(id).addEventListener('input',render));
+gid('chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;cat=c.dataset.cat;render();});
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{view=t.dataset.view;cat='';render();});
 render();
 </script>
