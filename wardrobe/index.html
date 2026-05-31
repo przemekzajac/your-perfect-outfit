@@ -80,15 +80,10 @@ select{cursor:pointer}
 
 .cbtn{position:absolute;width:33px;height:33px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
   font-size:16px;background:color-mix(in srgb,var(--surface) 82%,transparent);color:var(--text);backdrop-filter:blur(6px);
-  box-shadow:0 1px 5px rgba(0,0,0,.16);transition:.15s;opacity:.94;z-index:2}
-.cbtn:hover{opacity:1;transform:scale(1.09);color:var(--accent)}
+  box-shadow:0 1px 5px rgba(0,0,0,.16);transition:transform .14s ease,color .14s,opacity .14s;opacity:.94;z-index:2}
+.cbtn:hover{opacity:1;color:var(--accent);transform:scale(1.1)}
+.cbtn:active{transform:scale(1.16)}
 .cbtn.tl{top:9px;left:9px}.cbtn.tr{top:9px;right:9px}.cbtn.bl{bottom:9px;left:9px}.cbtn.br{bottom:9px;right:9px}
-.cbtn.trash:hover{color:#c0392b}
-.cbtn.caution{color:var(--returned)}
-.cbtn.ret{color:#fff;background:var(--returned);box-shadow:0 2px 9px color-mix(in srgb,var(--returned) 55%,transparent)}
-.cbtn.ret:hover{color:#fff;filter:brightness(1.06)}
-.cbtn.ret::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--returned);opacity:.55;animation:pulse 1.9s ease-out infinite;pointer-events:none}
-@keyframes pulse{0%{transform:scale(.92);opacity:.55}70%{transform:scale(1.55);opacity:0}100%{opacity:0}}
 
 .empty{text-align:center;color:var(--muted);padding:80px 20px}
 .empty .big{font-size:40px;opacity:.5;margin-bottom:12px}
