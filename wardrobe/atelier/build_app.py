@@ -11,7 +11,7 @@ import json, os, base64, mimetypes
 
 HERE = os.path.dirname(os.path.abspath(__file__))          # .../wardrobe/atelier
 ROOT = os.path.dirname(HERE)                               # .../wardrobe
-DEMO = os.path.join(HERE, "demo")
+DEMO = os.path.join(HERE, "demo200")
 raw = json.load(open(os.path.join(DEMO, "wardrobe_women.json")))
 items = raw["items"]
 
@@ -33,7 +33,7 @@ for it in items:
         b64 = base64.b64encode(open(found, "rb").read()).decode()
         it["image_file"] = f"data:{mime};base64,{b64}"
     else:
-        it["image_file"] = "demo/images/" + os.path.basename(found)
+        it["image_file"] = "demo200/images/" + os.path.basename(found)
 
 CAT_ICON = {"tops": "👕", "bottoms": "👖", "shoes": "👟", "outerwear": "🧥",
             "knitwear": "🧶", "accessory": "👜", "dresses": "👗", "underwear": "🩲"}
