@@ -642,7 +642,14 @@ gid('settingsBtn').onclick=()=>{
 };
 
 /* ---------- boot ---------- */
-setTab('wardrobe');
+try{ setTab('wardrobe'); }
+catch(err){
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div style="margin:16px;padding:14px 16px;border:1px solid #c0392b;border-radius:12px;'+
+    'font:14px -apple-system,sans-serif;color:#c0392b;background:#fff">Atelier couldn’t start in this viewer: '+
+    ((err&&err.message)||err)+'<br><br>Open this file in a real browser (Safari/Chrome), not an in-app preview.</div>');
+  throw err;
+}
 </script>
 </body>
 </html>

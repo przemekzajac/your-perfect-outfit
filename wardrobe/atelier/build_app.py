@@ -7,7 +7,8 @@ upgrades it to real Opus. All state in localStorage.
 
 WARDROBE_EMBED=1 inlines images as base64 -> single openable file.
 """
-import json, os, base64, mimetypes
+import json, os, base64, mimetypes, io
+from PIL import Image, ImageOps
 
 HERE = os.path.dirname(os.path.abspath(__file__))          # .../wardrobe/atelier
 ROOT = os.path.dirname(HERE)                               # .../wardrobe
@@ -29,9 +30,13 @@ for it in items:
         it["image_file"] = None
         continue
     if EMBED:
-        mime = mimetypes.guess_type(found)[0] or "image/jpeg"
-        b64 = base64.b64encode(open(found, "rb").read()).decode()
-        it["image_file"] = f"data:{mime};base64,{b64}"
+        try:                                  # downscale for a lighter, mobile-friendly single file
+            im = ImageOps.exif_transpose(Image.open(found)).convert("RGB")
+            im.thumbnail((340, 340), Image.LANCZOS)
+            buf = io.BytesIO(); im.save(buf, "JPEG", quality=72, optimize=True)
+            it["image_file"] = "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+        except Exception:
+            it["image_file"] = "demo200/images/" + os.path.basename(found)
     else:
         it["image_file"] = "demo200/images/" + os.path.basename(found)
 
@@ -735,7 +740,14 @@ gid('settingsBtn').onclick=()=>{
 };
 
 /* ---------- boot ---------- */
-setTab('wardrobe');
+try{ setTab('wardrobe'); }
+catch(err){
+  document.body.insertAdjacentHTML('afterbegin',
+    '<div style="margin:16px;padding:14px 16px;border:1px solid #c0392b;border-radius:12px;'+
+    'font:14px -apple-system,sans-serif;color:#c0392b;background:#fff">Atelier couldn’t start in this viewer: '+
+    ((err&&err.message)||err)+'<br><br>Open this file in a real browser (Safari/Chrome), not an in-app preview.</div>');
+  throw err;
+}
 </script>
 </body>
 </html>"""
